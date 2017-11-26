@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:custom="clr-namespace:LuisAI_XamarinForms.Views.Custom;assembly=LuisAI_XamarinForms"
+             xmlns:custom1="clr-namespace:LuisAI_XamarinForms.Custom;assembly=LuisAI_XamarinForms"
+             xmlns:viewModels="clr-namespace:LuisAI_XamarinForms.ViewModels;assembly=LuisAI_XamarinForms"
+             xmlns:cv="clr-namespace:LuisAI_XamarinForms.Converter;assembly=LuisAI_XamarinForms"
+             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             x:Class="LuisAI_XamarinForms.Views.ChatPage"
+             x:Name="ChatContentPage"
+             Title="LuisAI">
+
+    <ContentPage.BindingContext>
+        <viewModels:ChatPageViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <cv:BoolConveter x:Key="BoolConveter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid>
+            <custom:LoadingView IsVisible="{Binding IsRefresh}" />
+
+            <ContentView
+                IsVisible="{Binding IsRefresh,
+                Converter={StaticResource BoolConveter}, Mode=OneWay}">
+                <ListView ItemsSource="{Binding List}"
+                          HasUnevenRows="True"
+                          BackgroundColor="White"
+                          SeparatorVisibility="None"
+                          custom1:ItemTappedAttached.Command="{Binding Path=BindingContext.ItemSelectedCommand,
+                          Source={x:Reference ChatContentPage}}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Spacing="0">
+                                    <Grid RowSpacing="0"
+                                          Padding="15,5,15,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <ContentView Grid.Row="0">
+                                            <Label Text="{Binding Date}"
+                                                   TextColor="{StaticResource DividerColor}"
+                                                   HorizontalOptions="End"
+                                                   HorizontalTextAlignment="End" 
+                                                   FontSize="13"/>
+                                        </ContentView>
+                                        <ContentView Grid.Row="1">
+                                            <Grid ColumnSpacing="20">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <ContentView Grid.Column="0">
+                                                    <abstractions:CircleImage
+                                                        Source="{Binding Image}"
+                                                        HeightRequest="60"
+                                                        WidthRequest="60"
+                                                        VerticalOptions="Center"
+                                                        BorderThickness="1" />
+                                                </ContentView>
+                                                <ContentView Grid.Column="1">
+                                                    <StackLayout Spacing="0"
+                                                                 VerticalOptions="Center">
+                                                        <Label Text="{Binding NameSurname}"
+                                                               TextColor="{StaticResource PrimaryTextColor}"
+                                                               FontSize="20"/>
+                                                        <Label Text="{Binding ShortMessage}"
+                                                               TextColor="{StaticResource SecondaryTextColor}"
+                                                               FontSize="16"/>
+                                                    </StackLayout>
+                                                </ContentView>
+                                            </Grid>
+                                        </ContentView>
+                                    </Grid>
+                                    <ContentView Padding="15,15,15,0">
+                                        <Grid Style="{StaticResource SeparatorGrid}" />
+                                    </ContentView>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ContentView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

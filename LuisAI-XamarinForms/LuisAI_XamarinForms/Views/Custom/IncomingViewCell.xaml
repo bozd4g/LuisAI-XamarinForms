@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+          x:Class="LuisAI_XamarinForms.Views.Custom.IncomingViewCell">
+    <ViewCell.View>
+        <Grid ColumnSpacing="5"
+              Padding="10,0,40,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ContentView Grid.Column="0">
+                <abstractions:CircleImage
+                    Source="{Binding Image}"
+                    HeightRequest="30"
+                    WidthRequest="30"
+                    BorderThickness="1"
+                    VerticalOptions="Center" />
+            </ContentView>
+            <ContentView Grid.Column="1">
+                <StackLayout Spacing="0"
+                             VerticalOptions="Center">
+                    <Frame HorizontalOptions="Start"
+                           VerticalOptions="Center"
+                           HasShadow="False"
+                           BackgroundColor="White"
+                           CornerRadius="10"
+                           Padding="7,5">
+                        <Label Text="{Binding Text}"
+                               FontSize="16"
+                               TextColor="{StaticResource SecondaryTextColor}" />
+                    </Frame>
+                    <Label Text="{Binding Date}"
+                           TextColor="{StaticResource DividerColor}"
+                           HorizontalOptions="Start"
+                           HorizontalTextAlignment="Start" 
+                           FontSize="13"/>
+                </StackLayout>
+            </ContentView>
+        </Grid>
+    </ViewCell.View>
+</ViewCell>
