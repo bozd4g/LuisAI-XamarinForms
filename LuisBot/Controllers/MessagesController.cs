@@ -34,7 +34,7 @@ namespace LuisBot.Controllers
                 HandleSystemMessage(activity);
             }
             var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent("");
+            response.Content = new StringContent(ResponseMessage);
             return response;
         }
 
