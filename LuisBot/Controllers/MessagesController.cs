@@ -11,6 +11,8 @@ namespace LuisBot.Controllers
     [BotAuthentication]
     public class MessagesController : ApiController
     {
+        public static string ResponseMessage = string.Empty;
+
         /// <summary>
         /// POST: api/Messages
         /// Receive a message from a user and reply to it
@@ -32,6 +34,7 @@ namespace LuisBot.Controllers
                 HandleSystemMessage(activity);
             }
             var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent("");
             return response;
         }
 
